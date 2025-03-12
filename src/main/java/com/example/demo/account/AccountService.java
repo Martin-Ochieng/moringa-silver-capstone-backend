@@ -225,6 +225,7 @@ public class AccountService {
         } else {
             throw new IllegalStateException("Insufficient funds");
         }
+        accountRepository.save(account);
 
         AccountResponse accountResponse = new AccountResponse(
                 account.getName(),
