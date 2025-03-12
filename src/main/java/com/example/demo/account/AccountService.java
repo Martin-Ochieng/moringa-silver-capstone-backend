@@ -1,5 +1,6 @@
 package com.example.demo.account;
 
+import com.example.demo.dto.request.AccountRequest;
 import com.example.demo.dto.request.TransactRequest;
 import com.example.demo.dto.response.AccountResponse;
 import jakarta.transaction.Transactional;
@@ -80,7 +81,7 @@ public class AccountService {
     }
 
     @Transactional
-    public Object updateAccount(Long accountId, Account account) {
+    public Object updateAccount(Long accountId, AccountRequest account) {
 
 
         Account accountUpdate = accountRepository.findById(accountId)
@@ -105,7 +106,7 @@ public class AccountService {
             accountUpdate.setPassword(account.getPassword());
         }
 
-        accountRepository.save(account);
+        accountRepository.save(accountUpdate);
 
         AccountResponse accountResponse = new AccountResponse(
                 accountUpdate.getName(),
@@ -123,7 +124,7 @@ public class AccountService {
 
     }
 
-    private void updatePaypalUsername(Account account, Account accountUpdate) {
+    private void updatePaypalUsername(AccountRequest account, Account accountUpdate) {
         if (account.getUsername() != null && !account.getUsername().isEmpty() && !Objects.equals(accountUpdate.getUsername(), account.getUsername() )){
             Optional<Account> accountOptional = accountRepository.findAccountUsername(account.getUsername());
 
@@ -134,7 +135,7 @@ public class AccountService {
         }
     }
 
-    private void updatePaypalId(Account account, Account accountUpdate) {
+    private void updatePaypalId(AccountRequest account, Account accountUpdate) {
         if (account.getPaypalAccountId() != null && !account.getPaypalAccountId().isEmpty() && !Objects.equals(accountUpdate.getPaypalAccountId(), account.getPaypalAccountId() )){
             Optional<Account> accountOptional = accountRepository.findAccountPaypalId(account.getPaypalAccountId());
 
@@ -145,7 +146,7 @@ public class AccountService {
         }
     }
 
-    private void updateMsisdn(Account account, Account accountUpdate) {
+    private void updateMsisdn(AccountRequest account, Account accountUpdate) {
         if (account.getMsisdn() != null && !Objects.equals(accountUpdate.getMsisdn() , account.getMsisdn())){
             Optional<Account> accountOptional = accountRepository.findAccountByMsisdn(account.getMsisdn());
             if (accountOptional.isPresent()){

@@ -1,5 +1,6 @@
 package com.example.demo.account;
 
+import com.example.demo.dto.request.AccountRequest;
 import com.example.demo.dto.request.TransactRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class AccountController {
     @PutMapping(path = "{accountId}")
     public Object updateAccount(
             @PathVariable("accountId") Long accountId,
-            @RequestBody Account account) {
+            @RequestBody AccountRequest account) {
         return accountService.updateAccount(accountId, account);
 
     }
