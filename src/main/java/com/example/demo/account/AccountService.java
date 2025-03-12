@@ -106,6 +106,12 @@ public class AccountService {
             accountUpdate.setPassword(account.getPassword());
         }
 
+
+        if (account.getBalance() > 0){
+
+            accountUpdate.setBalance(account.getBalance());
+        }
+
         accountRepository.save(accountUpdate);
 
         AccountResponse accountResponse = new AccountResponse(
