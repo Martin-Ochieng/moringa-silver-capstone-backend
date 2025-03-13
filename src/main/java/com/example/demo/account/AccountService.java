@@ -205,7 +205,7 @@ public class AccountService {
 
         for (Account account : accounts) {
             AccountResponse accountResponse = new AccountResponse();
-
+            accountResponse.setId(account.getId());
             accountResponse.setMsisdn(account.getMsisdn());
             accountResponse.setPaypalAccountId(account.getPaypalAccountId());
             accountResponse.setName(account.getName());
