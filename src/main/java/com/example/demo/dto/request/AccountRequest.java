@@ -2,6 +2,7 @@ package com.example.demo.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class AccountRequest {
     private String name;
 
     @JsonProperty
+    @Pattern(regexp ="((254)|0)\\d{9}" , message = "MSISDN INVALID")
     private String msisdn;
 
     @JsonProperty

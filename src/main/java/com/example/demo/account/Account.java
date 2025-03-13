@@ -3,6 +3,7 @@ package com.example.demo.account;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,6 +37,7 @@ public class Account {
 
     @JsonProperty
     @Column(nullable = false, unique = true)
+    @Pattern(regexp ="((254)|0)\\d{9}" , message = "MSISDN INVALID")
     private String msisdn;
 
     @JsonProperty

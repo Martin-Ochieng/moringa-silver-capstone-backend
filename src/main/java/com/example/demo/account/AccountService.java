@@ -18,17 +18,25 @@ public class AccountService {
 
 
 
-    public Object addNewAccount(Account account) {
+    public Object addNewAccount(AccountRequest account) {
         Optional<Account> accountByMsisdn = accountRepository.findAccountByMsisdn((account.getMsisdn()));
-        Optional<Account> accountByID = accountRepository.findAccountPaypalId((account.getPaypalAccountId()));
 
-        if (accountByMsisdn.isPresent() || accountByID.isPresent()) {
+        if (accountByMsisdn.isPresent()) {
             throw new IllegalStateException("Account taken");
         }
 
-        accountRepository.save(account);
+        Account newAccount = new Account();
+        newAccount.setMsisdn(account.getMsisdn());
+        newAccount.setBalance(account.getBalance());
+        newAccount.setPaypalAccountId(account.getPaypalAccountId());
+        newAccount.setUsername(account.getUsername());
+        newAccount.setPassword(account.getPassword());
+        newAccount.setName(account.getName());
+
+        accountRepository.save(newAccount);
 
         AccountResponse accountResponse = new AccountResponse(
+                newAccount.getId(),
                 account.getName(),
                 account.getMsisdn(),
                 account.getPaypalAccountId(),
@@ -39,7 +47,7 @@ public class AccountService {
 
         return new ApiResponse(
                 "200",
-                "Successfully Added",
+                "Successfully Added. Account ID: " + newAccount.getId(),
                 new Response(accountResponse)
         );
     }
