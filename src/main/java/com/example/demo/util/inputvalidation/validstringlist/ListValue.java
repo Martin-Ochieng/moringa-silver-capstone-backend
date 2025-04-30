@@ -1,0 +1,18 @@
+package com.example.demo.util.inputvalidation.validstringlist;
+
+
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
+import java.lang.annotation.*;
+
+@Documented
+@Constraint(validatedBy = ListValueValidator.class)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ListValue {
+    String message() default "Invalid value. Allowed values: {allowedValues}";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
+    String[] allowedValues();
+}

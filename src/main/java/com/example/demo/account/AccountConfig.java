@@ -37,11 +37,22 @@ public class AccountConfig {
             );
 
 
+            Account evans = new Account(
+                    "Evans Ikindu",
+                    "254722000000",
+                    "3",
+                    "Evans2",
+                    "evans@123",
+                    20000
+
+            );
+
+
 
 
 
             repository.saveAll(
-                    List.of(mariam,martin)
+                    List.of(mariam,martin, evans)
             );
         };
     }
